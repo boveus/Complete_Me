@@ -18,16 +18,16 @@ class CompleteMe
     tree.count
   end
 
-  def suggest(word)
-    tree.suggest(@tree,word)
+  def suggest(word_fragment)
+    tree.suggest(word_fragment)
   end
 
   def populate(words)
-    tree.populate(@tree, words)
+    tree.populate(words)
   end
 
   def select(string, suggestion)
-    tree.select(@tree, string, suggestion)#why is select a different color
+    tree.select(string, suggestion)#why is select a different color
   end
 
 end

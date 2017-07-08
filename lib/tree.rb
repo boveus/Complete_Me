@@ -46,4 +46,38 @@ class Tree
     populate_children(@root, converted_word, position)
   end
 
+  def suggest(word_fragment)
+    word_fragment_array = convert_word_to_array(word_fragment)
+    last_letter = word_fragment_array[-1]
+    #refactor the above into methods
+    find_suggest_start(@root, word_fragment_array, last_letter)
+
+  end
+
+  def find_suggest_start(node, word_fragment_array, last_letter, position = 0)
+    #fix insert method to work like this one with the location of where letter is being generated
+    letter = word_fragment_array[position]
+    if node.has_child?(letter) && letter != last_letter
+    position += 1
+    find_suggest_start(node.get_child(letter), word_fragment_array, last_letter, position)
+    elsif node.has_child?(letter) && letter == last_letter
+    #method that traverses tree and returns all children to an array
+      return_all_words_from_children(get_child(letter))
+    else
+     return []
+  end
+
+  def return_all_words_from_children(node, suggest_array = [])
+    if node.word == true
+      suggest_array << node.word
+      
+    else
+    sort(node.left_child, sorted_array)
+    sorted_array << node.data
+    sort(node.right_child, sorted_array)
+    end
+    sorted_array
+  end
+  end
+
 end
