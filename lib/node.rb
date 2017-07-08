@@ -5,6 +5,10 @@ class Node
               :word
   def initialize
     @word = nil
+    # Depending on how we implement the traversal function we may not need
+    # the letter attribute.  We could just retrieve the letter from the key
+    # that points to the node, save it somwhere, and pass it along to the final
+    # string.
     @letter = nil
     @children = {}
     @next_node = nil
