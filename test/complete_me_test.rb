@@ -4,6 +4,8 @@ require 'minitest/pride'
 
 class CompleteMeTest < Minitest::Test
 
+  attr_reader :completion
+
   def setup
     @completion = CompleteMe.new
   end
@@ -13,29 +15,26 @@ class CompleteMeTest < Minitest::Test
   end
 #spec does not tell us what insert method needs to return, do we want it to return number of inserts or something else
   def test_insert_one_item_returns_count
-    skip
+
     @completion.insert("pizza")
     assert_equal 1, @completion.count
   end
 
   def test_insert_three_items_with_different_first_letters_returns_count
-    skip
-    @@completion.insert("pizza")
-    @@completion.insert("house")
-    @@completion.insert("wolves")
-    assert_equal 3, @@completion.count
+    @completion.insert("pizza")
+    @completion.insert("house")
+    @completion.insert("wolves")
+    assert_equal 3, @completion.count
   end
 
   def test_insert_three_items_with_same_first_letters_returns_count
-    skip
-    @@completion.insert("hose")
-    @@completion.insert("hostile")
-    @@completion.insert("host")
-    assert_equal 3, @@completion.count
+    @completion.insert("hose")
+    @completion.insert("hostile")
+    @completion.insert("host")
+    assert_equal 3, @completion.count
   end
 
   def test_insert_five_random_words_returns_count
-    skip
     word_collection = File.readlines("/usr/share/dict/words")#returns an array of all words in file
     5.times do
       @completion.insert(word_collection.sample.strip)

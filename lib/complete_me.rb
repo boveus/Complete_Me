@@ -1,19 +1,21 @@
 # /usr/share/dict/words
 #We might need to change some of the arguments passed in to these.
+require './lib/tree'
+
 class CompleteMe
 
   attr_reader :tree
 
   def initialize
-    @tree = tree
+    @tree = Tree.new
   end
 
   def insert(word)
-    tree.insert(@tree, word)
+    tree.insert(word)
   end
 
   def count
-    tree.count(@tree)
+    tree.count
   end
 
   def suggest(word)

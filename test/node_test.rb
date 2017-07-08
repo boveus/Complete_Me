@@ -31,7 +31,7 @@ class NodeTest < Minitest::Test
   end
 
   def test_node_can_add_next_node
-    @node.set_next_node(@node2)#@node2 is not an instance variable in initialize, not sure how this works
+    @node.set_next_node(@node2)
     assert_instance_of Node, @node.next_node
   end
 
