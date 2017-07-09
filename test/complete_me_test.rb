@@ -56,12 +56,35 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_suggest_word_with_three_similar_words_inserted
-      
       @completion.insert("hose")
       @completion.insert("hostile")
       @completion.insert("host")
       assert_equal ["hose", "host", "hostile"], @completion.suggest("ho")
   end
+
+  def test_suggest_single_children
+      @completion.insert("bracket")
+      assert_equal ["bracket"], @completion.suggest("br")
+      @completion.insert("hostile")
+      assert_equal ["hostile"], @completion.suggest("ho")
+      @completion.insert("mississippi")
+      assert_equal ["mississippi"], @completion.suggest("mi")
+    end
+
+
+  def test_suggest_word_with_several_more_words_inserted
+      @completion.insert("hose")
+      @completion.insert("hostile")
+      @completion.insert("host")
+      @completion.insert("hostage")
+      @completion.insert("hostel")
+      @completion.insert("hoss")
+      @completion.insert("hiss")
+      # assert_equal ["hose", "host", "hostile", "hostage", "hostel", "hoss"], @completion.suggest("h")
+      assert_equal ["hose", "host", "hostile", "hostage", "hostel", "hoss"], @completion.suggest("hos")
+  end
+
+
 
 
 end
