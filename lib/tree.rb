@@ -16,25 +16,26 @@ class Tree
     @number_of_words
   end
 
-  def populate_children(node, converted_word, index)
+  def populate_children(node, converted_word, index, final_index)
     last_letter = converted_word[-1]
     letter = converted_word[index]
-    check_children(node, letter, last_letter, converted_word, index)
+    check_children(node, letter, last_letter, converted_word, index, final_index)
   end
 
-  def check_children(node, letter, last_letter, converted_word, index)
-    if node.has_no_child?(letter) && index < converted_word.length
+  def check_children(node, letter, last_letter, converted_word, index, final_index)
+    # Add conditional to account for word already being present to prevent
+    # counter from being increased
+    if node.has_no_child?(letter) && index < final_index
       node.add_child(Node.new, letter)
       index += 1
-      populate_children(node.get_child(letter), converted_word, index)
-    elsif node.has_no_child?(letter) && index = (converted_word.length + 1)
-      node.add_child(Node.new, letter)
-      node.get_child(letter).set_word
+      populate_children(node.get_child(letter), converted_word, index, final_index)
+    elsif node.has_no_child?(letter) && index == final_index
+      node.set_word
       return @number_of_words += 1
-    elsif node.has_child?(letter) && index < converted_word.length
+    elsif node.has_child?(letter) && index < final_index
       index += 1
-      populate_children(node.get_child(letter), converted_word, index)
-    elsif node.has_child?(letter) && index = (converted_word.length + 1)
+      populate_children(node.get_child(letter), converted_word, index, final_index)
+    elsif node.has_child?(letter) && index == final_index
       node.get_child(letter).set_word
       return @number_of_words += 1
     end
@@ -43,7 +44,8 @@ class Tree
   def insert(word)
     index = 0
     converted_word = convert_word_to_array(word)
-    populate_children(@root, converted_word, index)
+    final_index = converted_word.length
+    populate_children(@root, converted_word, index, final_index)
   end
 
   def suggest(word_fragment)
@@ -70,7 +72,7 @@ class Tree
         return_all_words_from_children(child_node, word_fragment_array, suggest_array)
       end
 
-    elsif node.children.count > 1 
+    elsif node.children.count > 1
       node.children.each do |letter, child_node|
         word_fragment_array << letter
         return_all_words_from_children(child_node, word_fragment_array, suggest_array)
