@@ -54,6 +54,24 @@ class Tree
 
   end
 
+  def return_all_words_from_children(node, word_fragment_array, suggest_array = [])
+    if node.word == true
+      #suggest_array << node.word This returns true or false, not the word
+      suggest_array << word_fragment_array.join
+      node.children.each do |letter, node|
+        word_fragment_array << letter
+        return_all_words_from_children(node, word_fragment_array, suggest_array)
+      end
+    else
+      node.children.each do |letter, node|
+        word_fragment_array << letter
+        return_all_words_from_children(node, word_fragment_array, suggest_array)
+      end
+    end
+      suggest_array
+    end
+  end
+
   def find_suggest_start(node, word_fragment_array, last_letter, position = 0)
     #fix insert method to work like this one with the location of where letter is being generated
     letter = word_fragment_array[position]
@@ -62,22 +80,13 @@ class Tree
     find_suggest_start(node.get_child(letter), word_fragment_array, last_letter, position)
     elsif node.has_child?(letter) && letter == last_letter
     #method that traverses tree and returns all children to an array
-      return_all_words_from_children(get_child(letter))
+      return_all_words_from_children(node.get_child(letter), word_fragment_array)
     else
      return []
   end
 
-  def return_all_words_from_children(node, suggest_array = [])
-    if node.word == true
-      suggest_array << node.word
-      
-    else
-    sort(node.left_child, sorted_array)
-    sorted_array << node.data
-    sort(node.right_child, sorted_array)
-    end
-    sorted_array
-  end
-  end
+
+
+
 
 end

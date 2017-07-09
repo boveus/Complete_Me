@@ -13,7 +13,7 @@ class CompleteMeTest < Minitest::Test
   def test_can_make_complete_me_objects
     assert_instance_of CompleteMe, @completion
   end
-#spec does not tell us what insert method needs to return, do we want it to return number of inserts or something else
+
   def test_insert_one_item_returns_count
 
     @completion.insert("pizza")
@@ -44,19 +44,19 @@ class CompleteMeTest < Minitest::Test
 
 #how many suggest tests do we want to do?
   def test_suggest_word_with_one_word_inserted_and_one_letter_string
-      skip
+
       @completion.insert("pizza")
       assert_equal ["pizza"], @completion.suggest("p")
   end
 
   def test_suggest_word_with_one_word_inserted_and_three_letter_string
-      skip
+
       @completion.insert("pizza")
       assert_equal ["pizza"], @completion.suggest("piz")
   end
 
   def test_suggest_word_with_three_similar_words_inserted
-      skip
+      
       @completion.insert("hose")
       @completion.insert("hostile")
       @completion.insert("host")
