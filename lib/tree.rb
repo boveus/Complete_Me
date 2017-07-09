@@ -56,7 +56,7 @@ class Tree
 
   def return_all_words_from_children(node, word_fragment_array, suggest_array = [])
 # works for nodes that have a single child, but not if the node has multiple children
-    if node.word == true
+    if node.word == true && node.children.count < 2
       #suggest_array << node.word This returns true or false, not the word
       suggest_array << word_fragment_array.join
       node.children.each do |letter, child_node|
@@ -65,7 +65,7 @@ class Tree
         return_all_words_from_children(child_node, word_fragment_array, suggest_array)
       end
 
-    else
+    elsif node.word == false && node.children.count < 2
       node.children.each do |letter, child_node|
         word_fragment_array << letter
         return_all_words_from_children(child_node, word_fragment_array, suggest_array)

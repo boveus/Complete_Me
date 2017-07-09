@@ -69,7 +69,7 @@ class CompleteMeTest < Minitest::Test
       assert_equal ["hostile"], @completion.suggest("ho")
       @completion.insert("mississippi")
       assert_equal ["mississippi"], @completion.suggest("mi")
-    end
+  end
 
 
   def test_suggest_word_with_several_more_words_inserted
