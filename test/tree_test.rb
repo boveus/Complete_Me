@@ -33,7 +33,6 @@ class TreeTest < Minitest::Test
   end
 
   def test_insert_five_random_words_returns_count
-    
     word_collection = File.readlines("/usr/share/dict/words")#returns an array of all words in file
     5.times do
       @tree.insert(word_collection.sample.strip)

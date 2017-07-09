@@ -61,7 +61,6 @@ class Tree
       suggest_array << word_fragment_array.join
       node.children.each do |letter, child_node|
         word_fragment_array << letter
-
         return_all_words_from_children(child_node, word_fragment_array, suggest_array)
       end
 
@@ -70,6 +69,12 @@ class Tree
         word_fragment_array << letter
         return_all_words_from_children(child_node, word_fragment_array, suggest_array)
       end
+
+    elsif node.children.count > 1 
+      node.children.each do |letter, child_node|
+        word_fragment_array << letter
+        return_all_words_from_children(child_node, word_fragment_array, suggest_array)
+        end
     end
       suggest_array
   end

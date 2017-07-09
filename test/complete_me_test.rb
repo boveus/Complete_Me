@@ -5,7 +5,6 @@ require 'minitest/pride'
 class CompleteMeTest < Minitest::Test
 
   attr_reader :completion
-
   def setup
     @completion = CompleteMe.new
   end
@@ -50,7 +49,6 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_suggest_word_with_one_word_inserted_and_three_letter_string
-
       @completion.insert("pizza")
       assert_equal ["pizza"], @completion.suggest("piz")
   end
@@ -69,10 +67,12 @@ class CompleteMeTest < Minitest::Test
       assert_equal ["hostile"], @completion.suggest("ho")
       @completion.insert("mississippi")
       assert_equal ["mississippi"], @completion.suggest("mi")
+      @completion.insert("atlanta")
+      assert_equal ["atlanta"], @completion.suggest("at")
   end
 
 
-  def test_suggest_word_with_several_more_words_inserted
+  def test_suggest_word_with_several_related_children
       @completion.insert("hose")
       @completion.insert("hostile")
       @completion.insert("host")
@@ -81,10 +81,6 @@ class CompleteMeTest < Minitest::Test
       @completion.insert("hoss")
       @completion.insert("hiss")
       # assert_equal ["hose", "host", "hostile", "hostage", "hostel", "hoss"], @completion.suggest("h")
-      assert_equal ["hose", "host", "hostile", "hostage", "hostel", "hoss"], @completion.suggest("hos")
+      assert_equal ["hose", "host", "hostile", "hostage", "hostel", "hoss"], @completion.suggest("ho")
   end
-
-
-
-
 end
