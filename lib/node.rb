@@ -47,12 +47,19 @@ class Node
     end
   end
 
-  def child_not_nil?
-    if @children.count < 1
-      false
-    else
+  def more_than_one_child?
+    if @children.count > 1
       true
+    else
+      false
     end
   end
 
+  def has_one_child?
+    if @children.count == 1
+      true
+    else
+      false
+    end
+  end
 end

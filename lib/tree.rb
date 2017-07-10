@@ -90,26 +90,41 @@ class Tree
   #
   # break condition is word == true
 
+# prefix???
 
+# For a TrieWithNoChildren, there is nothing to do in this step.
+# Because a TrieWithOneChild has exactly one child, we need a single recursive call on this child.
+# Before we make this call, we will need to append the child's label to the StringBuilder.
+# Following the recursive call, we will need to remove the character that we added by decreasing
+ # its Length property by 1.
+# We handle a TrieWithManyChildren in a similar way as a TrieWithOneChild,
+#  only we will need to iterate through the array of children and process
+#  ach non-null child with a recursive call. Note that for each of these
+#  children, its label will need to be appended to the StringBuilder prior
+#   to the recursive call and removed immediately after. We can obtain the
+#    label of a child by adding 'a' to its array index and casting the
+#     result to a char.
+
+def node_is_word_and_has_no_child(node)
+  node.word == true && node.child_nil?
+end
+
+def node_is_word_and_has_more_than_one_child(node)
+node.word == true && node.more_than_one_child?
+end
 
   def trie_walk(node, word_fragment_array, suggested_words = [])
     node.children.each do |letter, child_node|
-      if child_node.word == true && child_node.child_nil?
+      if node_is_word_and_has_no_child(child_node)
         word_fragment_array << letter
-        # puts word_fragment_array
         suggested_words << word_fragment_array.join
         word_fragment_array.pop
-      elsif child_node.word == true && child_node.child_not_nil?
+      elsif node_is_word_and_has_more_than_one_child(node)
         word_fragment_array << letter
-        # puts word_fragment_array
         suggested_words << word_fragment_array.join
-        # word_fragment_array.pop
         trie_walk(child_node, word_fragment_array, suggested_words)
       else
         word_fragment_array << letter
-        # for debugging purposes -V
-        # suggested_words << word_fragment_array.join
-        # puts word_fragment_array
         trie_walk(child_node, word_fragment_array, suggested_words)
       end
     end

@@ -66,7 +66,6 @@ class CompleteMeTest < Minitest::Test
       @completion.insert("hose")
       @completion.insert("hostile")
       @completion.insert("host")
-      binding.pry
       assert_equal ["hose", "host", "hostile"], @completion.suggest("ho")
   end
 
@@ -81,7 +80,6 @@ class CompleteMeTest < Minitest::Test
       @completion.insert("hostel")
       @completion.insert("hoss")
       @completion.insert("hiss")
-      # binding.pry
       assert_equal ["hose", "host", "hostile", "hostage", "hostel", "hoss", "hiss"], @completion.suggest("h")
       # assert_equal ["hose", "host", "hostile", "hostage", "hostel", "hoss"], @completion.suggest("ho")
   end
