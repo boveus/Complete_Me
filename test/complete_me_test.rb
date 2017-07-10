@@ -1,6 +1,10 @@
+require 'simplecov'
 require './lib/complete_me'
 require 'minitest/autorun'
 require 'minitest/pride'
+
+SimpleCov.start
+
 
 class CompleteMeTest < Minitest::Test
 
