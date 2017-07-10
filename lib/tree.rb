@@ -50,40 +50,37 @@ class Tree
   def suggest(word_fragment)
     word_fragment_array = convert_word_to_array(word_fragment)
     final_index = word_fragment_array.length - 1
-    find_suggest_start(@root, word_fragment_array, final_index)
+    find_suggest_start(@root, word_fragment_array, final_index, word_fragment)
   end
 
-  def find_suggest_start(node, word_fragment_array, final_index, index = 0)
+  def find_suggest_start(node, word_fragment_array, final_index, word_fragment, index = 0)
     #fix insert method to work like this one with the location of where letter is being generated
     letter = word_fragment_array[index]
     if node.has_child?(letter) && index < final_index
       index += 1
-      find_suggest_start(node.get_child(letter), word_fragment_array, final_index, index)
+      find_suggest_start(node.get_child(letter), word_fragment_array, final_index, word_fragment, index)
     elsif index == final_index
-      word_fragment_array.pop
-      trie_walk(node, word_fragment_array)
-      #method that traverses tree and returns all children to an array
+      # word_fragment.chop!
+      walk_trie(node, word_fragment)
     end
   end
 
-  def trie_walk(node, word_fragment_array, suggested_words = [])
-    node.children.each do |letter, child_node|
-      if child_node.word == true && child_node.child_nil?
-        word_fragment_array << letter
-        suggested_words << word_fragment_array.join
-        word_fragment_array.pop
-      elsif child_node.word == true && child_node.child_not_nil?
-        word_fragment_array << letter
-        suggested_words << word_fragment_array.join
-        trie_walk(child_node, word_fragment_array, suggested_words)
-      else
-        word_fragment_array << letter
-        trie_walk(child_node, word_fragment_array, suggested_words)
-      end
+  def walk_trie(node, word_fragment, word_array = [], word = '')
+    if node.word
+      word << node.letter
+      word_array << word
+      word = ''
+      #add path to word list as word
+      return
+    else
+      word << node.letter
+      node.children.each do |letter, child_node|
+        walk_trie(child_node, word_fragment, word_array, word)
+        binding.pry
     end
-    suggested_words
+    word_array
+    end
   end
-
 
 
 

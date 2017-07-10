@@ -27,6 +27,8 @@ class Node
     @children[letter]
   end
 
+#Refactor the things below to return a boolean instead of explicit true/false
+
   def has_child?(letter)
     if get_child(letter) != nil
       true
