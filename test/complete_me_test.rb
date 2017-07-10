@@ -74,7 +74,6 @@ class CompleteMeTest < Minitest::Test
 
 
   def test_suggest_word_with_several_related_children
-      skip
       @completion.insert("hose")
       @completion.insert("hostile")
       @completion.insert("host")
@@ -83,7 +82,7 @@ class CompleteMeTest < Minitest::Test
       @completion.insert("hoss")
       @completion.insert("hiss")
       # binding.pry
-      # assert_equal ["hose", "host", "hostile", "hostage", "hostel", "hoss"], @completion.suggest("h")
-      assert_equal ["hose", "host", "hostile", "hostage", "hostel", "hoss"], @completion.suggest("ho")
+      assert_equal ["hose", "host", "hostile", "hostage", "hostel", "hoss", "hiss"], @completion.suggest("h")
+      # assert_equal ["hose", "host", "hostile", "hostage", "hostel", "hoss"], @completion.suggest("ho")
   end
 end

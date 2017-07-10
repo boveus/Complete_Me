@@ -98,10 +98,12 @@ class Tree
         word_fragment_array << letter
         # puts word_fragment_array
         suggested_words << word_fragment_array.join
-      elsif node.word == true && child_node.child_not_nil?
+        word_fragment_array.pop
+      elsif child_node.word == true && child_node.child_not_nil?
         word_fragment_array << letter
         # puts word_fragment_array
         suggested_words << word_fragment_array.join
+        # word_fragment_array.pop
         trie_walk(child_node, word_fragment_array, suggested_words)
       else
         word_fragment_array << letter
