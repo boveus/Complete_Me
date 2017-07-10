@@ -80,7 +80,6 @@ class CompleteMeTest < Minitest::Test
 
 
   def test_suggest_word_with_several_related_children
-    skip
       @completion.insert("hose")
       @completion.insert("hostile")
       @completion.insert("host")
