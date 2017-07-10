@@ -64,10 +64,9 @@ class Tree
       index += 1
       find_suggest_start(node.get_child(letter), word_fragment_array, final_index, index)
     elsif index == final_index
-      suggested_words = []
-      suggested_words = trie_walk(node, word_fragment_array)
+      word_fragment_array.pop
+      trie_walk(node, word_fragment_array)
       #method that traverses tree and returns all children to an array
-      return suggested_words
     end
   end
 
@@ -95,7 +94,7 @@ class Tree
 
   def trie_walk(node, word_fragment_array, suggested_words = [])
     node.children.each do |letter, child_node|
-      if (child_node.word == true && child_node.has_no_child?(letter))
+      if child_node.word == true && child_node.child_nil? == false
         word_fragment_array << letter
         # puts word_fragment_array
         suggested_words << word_fragment_array.join
@@ -107,7 +106,7 @@ class Tree
       else
         word_fragment_array << letter
         # for debugging purposes -V
-        suggested_words << word_fragment_array.join
+        # suggested_words << word_fragment_array.join
         # puts word_fragment_array
         trie_walk(child_node, word_fragment_array, suggested_words)
       end

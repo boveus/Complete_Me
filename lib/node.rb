@@ -39,6 +39,14 @@ class Node
     end
   end
 
+  def child_nil?
+    if @children.count > 1
+      true
+    else
+      false
+    end
+  end
+
   def child_not_nil?
     if @children.count < 1
       false

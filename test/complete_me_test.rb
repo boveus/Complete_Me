@@ -15,6 +15,7 @@ class CompleteMeTest < Minitest::Test
 
   def test_insert_one_item_returns_count
     @completion.insert("pizza")
+    binding.pry
     assert_equal 1, @completion.count
   end
 
