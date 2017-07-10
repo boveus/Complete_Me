@@ -12,27 +12,17 @@ class NodeTest < Minitest::Test
     assert_instance_of Node, @node
   end
 
-  def test_node_has_no_letter_by_default
-    assert_nil @node.letter
-  end
-
   def test_node_has_no_children_by_default
     empty_hash = {}
     assert_equal empty_hash, @node.children
   end
 
   def test_node_has_no_word_by_default
-    assert_nil @node.word
+    refute @node.word
   end
 
-  def test_node_can_add_word
-    @node.set_word("Aardvark")
-    assert_equal @node.word, "Aardvark"
-  end
-
-  def test_node_can_add_next_node
-    @node.set_next_node(@node2)
-    assert_instance_of Node, @node.next_node
+  def test_node_can_have_word
+    assert @node.set_word
   end
 
   def test_node_can_add_children

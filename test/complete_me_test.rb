@@ -1,6 +1,10 @@
+require 'simplecov'
 require './lib/complete_me'
 require 'minitest/autorun'
 require 'minitest/pride'
+
+SimpleCov.start
+
 
 class CompleteMeTest < Minitest::Test
 
@@ -47,11 +51,13 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_suggest_word_with_one_word_inserted_and_one_letter_string
+    skip
       @completion.insert("pizza")
       assert_equal ["pizza"], @completion.suggest("p")
   end
 
   def test_suggest_single_children
+    skip
       @completion.insert("bracket")
       assert_equal ["bracket"], @completion.suggest("br")
       @completion.insert("hostile")
@@ -63,6 +69,7 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_suggest_word_with_three_similar_words_inserted
+    skip
       @completion.insert("hose")
       @completion.insert("hostile")
       @completion.insert("host")
@@ -73,6 +80,7 @@ class CompleteMeTest < Minitest::Test
 
 
   def test_suggest_word_with_several_related_children
+    skip
       @completion.insert("hose")
       @completion.insert("hostile")
       @completion.insert("host")
@@ -80,7 +88,7 @@ class CompleteMeTest < Minitest::Test
       @completion.insert("hostel")
       @completion.insert("hoss")
       @completion.insert("hiss")
-    
+
       assert_equal ["hose", "host", "hostile", "hostage", "hostel", "hoss", "hiss"], @completion.suggest("h")
       # assert_equal ["hose", "host", "hostile", "hostage", "hostel", "hoss"], @completion.suggest("ho")
   end
