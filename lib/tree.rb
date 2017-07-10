@@ -64,7 +64,7 @@ class Tree
       index += 1
       find_suggest_start(node.get_child(letter), word_fragment_array, final_index, index)
     elsif index == final_index
-      #word_fragment_array.pop
+      word_fragment_array.pop
       trie_walk(node, word_fragment_array)
       #method that traverses tree and returns all children to an array
     end
