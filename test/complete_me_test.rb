@@ -15,7 +15,6 @@ class CompleteMeTest < Minitest::Test
 
   def test_insert_one_item_returns_count
     @completion.insert("pizza")
-    binding.pry
     assert_equal 1, @completion.count
   end
 
@@ -48,13 +47,11 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_suggest_word_with_one_word_inserted_and_one_letter_string
-      skip
       @completion.insert("pizza")
       assert_equal ["pizza"], @completion.suggest("p")
   end
 
   def test_suggest_single_children
-      skip
       @completion.insert("bracket")
       assert_equal ["bracket"], @completion.suggest("br")
       @completion.insert("hostile")
@@ -66,10 +63,10 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_suggest_word_with_three_similar_words_inserted
-      skip
       @completion.insert("hose")
       @completion.insert("hostile")
       @completion.insert("host")
+      binding.pry
       assert_equal ["hose", "host", "hostile"], @completion.suggest("ho")
   end
 

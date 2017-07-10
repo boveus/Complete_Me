@@ -94,7 +94,7 @@ class Tree
 
   def trie_walk(node, word_fragment_array, suggested_words = [])
     node.children.each do |letter, child_node|
-      if child_node.word == true && child_node.child_nil? == false
+      if child_node.word == true && child_node.child_nil?
         word_fragment_array << letter
         # puts word_fragment_array
         suggested_words << word_fragment_array.join

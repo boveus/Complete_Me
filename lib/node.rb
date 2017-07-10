@@ -40,7 +40,7 @@ class Node
   end
 
   def child_nil?
-    if @children.count > 1
+    if @children.count < 1
       true
     else
       false
