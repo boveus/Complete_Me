@@ -109,8 +109,8 @@ def node_is_word_and_has_no_child(node)
   node.word == true && node.child_nil?
 end
 
-def node_is_word_and_has_more_than_one_child(node)
-node.word == true && node.more_than_one_child?
+def node_is_word_and_child_not_nil(node)
+  node.word == true && node.child_not_nil?
 end
 
   def trie_walk(node, word_fragment_array, suggested_words = [])
@@ -119,7 +119,7 @@ end
         word_fragment_array << letter
         suggested_words << word_fragment_array.join
         word_fragment_array.pop
-      elsif node_is_word_and_has_more_than_one_child(node)
+      elsif node_is_word_and_child_not_nil(child_node)
         word_fragment_array << letter
         suggested_words << word_fragment_array.join
         trie_walk(child_node, word_fragment_array, suggested_words)
