@@ -26,6 +26,7 @@ class CompleteMeTest < Minitest::Test
     @completion.insert("pizza")
     @completion.insert("house")
     @completion.insert("wolves")
+
     assert_equal 3, @completion.count
   end
 

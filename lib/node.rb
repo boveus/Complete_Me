@@ -1,18 +1,26 @@
 require 'pry'
 class Node
   attr_reader :children,
-              :word
+              :word,
+              :letter
+
   def initialize
     @word = false
     @children = {}
+    @letter = ''
   end
 
   def set_word
     @word = true
   end
 
+  def set_letter(letter)
+    @letter = letter
+  end
+
   def add_child(node, letter)
     @children[letter] = node
+    @children[letter].set_letter(letter)
   end
 
   def get_child(letter)
