@@ -11,10 +11,6 @@ class Node
     @word = true
   end
 
-  def set_next_node(next_node)
-    @next_node = next_node
-  end
-
   def add_child(node, letter)
     @children[letter] = node
   end
@@ -55,19 +51,4 @@ class Node
     end
   end
 
-  def more_than_one_child?
-    if @children.count > 1
-      true
-    else
-      false
-    end
-  end
-
-  def has_one_child?
-    if @children.count == 1
-      true
-    else
-      false
-    end
-  end
 end
