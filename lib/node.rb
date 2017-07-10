@@ -1,17 +1,10 @@
 require 'pry'
 class Node
-  attr_reader :letter,
-              :children,
-              :next_node,
+  attr_reader :children,
               :word
   def initialize
     @word = false
-    # Depending on how we implement the traversal function we may not need
-    # the letter attribute.  We could just retrieve the letter from the key
-    # that points to the node, save it somwhere, and pass it along to the final
-    # string.
     @children = {}
-    @next_node = nil
   end
 
   def set_word
@@ -43,6 +36,14 @@ class Node
       true
     else
       false
+    end
+  end
+
+  def child_not_nil?
+    if @children.count < 1
+      false
+    else
+      true
     end
   end
 

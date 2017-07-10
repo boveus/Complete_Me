@@ -14,7 +14,6 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_insert_one_item_returns_count
-
     @completion.insert("pizza")
     assert_equal 1, @completion.count
   end
@@ -40,27 +39,21 @@ class CompleteMeTest < Minitest::Test
     end
     assert_equal 5, @completion.count
   end
-
 #how many suggest tests do we want to do?
-  def test_suggest_word_with_one_word_inserted_and_one_letter_string
 
+  def test_suggest_word_with_one_word_inserted_and_three_letter_string
+      @completion.insert("pizza")
+      assert_equal ["pizza"], @completion.suggest("pi")
+  end
+
+  def test_suggest_word_with_one_word_inserted_and_one_letter_string
+      skip
       @completion.insert("pizza")
       assert_equal ["pizza"], @completion.suggest("p")
   end
 
-  def test_suggest_word_with_one_word_inserted_and_three_letter_string
-      @completion.insert("pizza")
-      assert_equal ["pizza"], @completion.suggest("piz")
-  end
-
-  def test_suggest_word_with_three_similar_words_inserted
-      @completion.insert("hose")
-      @completion.insert("hostile")
-      @completion.insert("host")
-      assert_equal ["hose", "host", "hostile"], @completion.suggest("ho")
-  end
-
   def test_suggest_single_children
+      skip
       @completion.insert("bracket")
       assert_equal ["bracket"], @completion.suggest("br")
       @completion.insert("hostile")
@@ -71,8 +64,19 @@ class CompleteMeTest < Minitest::Test
       assert_equal ["atlanta"], @completion.suggest("at")
   end
 
+  def test_suggest_word_with_three_similar_words_inserted
+      skip
+      @completion.insert("hose")
+      @completion.insert("hostile")
+      @completion.insert("host")
+      assert_equal ["hose", "host", "hostile"], @completion.suggest("ho")
+  end
+
+
+
 
   def test_suggest_word_with_several_related_children
+      skip
       @completion.insert("hose")
       @completion.insert("hostile")
       @completion.insert("host")
@@ -80,6 +84,7 @@ class CompleteMeTest < Minitest::Test
       @completion.insert("hostel")
       @completion.insert("hoss")
       @completion.insert("hiss")
+      # binding.pry
       # assert_equal ["hose", "host", "hostile", "hostage", "hostel", "hoss"], @completion.suggest("h")
       assert_equal ["hose", "host", "hostile", "hostage", "hostel", "hoss"], @completion.suggest("ho")
   end
