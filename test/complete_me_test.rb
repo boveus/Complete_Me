@@ -47,19 +47,16 @@ class CompleteMeTest < Minitest::Test
 #how many suggest tests do we want to do?
 
   def test_suggest_word_with_one_word_inserted_and_three_letter_string
-    skip
       @completion.insert("pizza")
       assert_equal ["pizza"], @completion.suggest("pi")
   end
 
   def test_suggest_word_with_one_word_inserted_and_one_letter_string
-    skip
       @completion.insert("pizza")
       assert_equal ["pizza"], @completion.suggest("p")
   end
 
   def test_suggest_single_children
-      skip
       @completion.insert("bracket")
       assert_equal ["bracket"], @completion.suggest("br")
       @completion.insert("hostile")
@@ -76,11 +73,10 @@ class CompleteMeTest < Minitest::Test
       @completion.insert("hostel")
       @completion.insert("hosting")
 
-      assert_equal ["host", "hose", "hostel", "hosting"], @completion.suggest("ho")
+      assert_equal ["hose", "host", "hostel", "hosting"], @completion.suggest("ho")
   end
 
   def test_suggest_word_with_several_related_children
-    skip
       @completion.insert("hose")
       @completion.insert("hostile")
       @completion.insert("host")
@@ -89,7 +85,16 @@ class CompleteMeTest < Minitest::Test
       @completion.insert("hoss")
       @completion.insert("hiss")
 
-      # assert_equal ["hose", "host", "hostile", "hostage", "hostel", "hoss", "hiss"], @completion.suggest("h")
-      assert_equal ["hose", "host", "hostile", "hostage", "hostel"], @completion.suggest("ho")
+      assert_equal ["hiss", "hose", "hoss", "host", "hostage", "hostel", "hostile"], @completion.suggest("h")
+      assert_equal ["hose", "hoss", "host", "hostage", "hostel", "hostile"], @completion.suggest("ho")
   end
+
+  def test_suggest_word_with_ten_random_children
+    word_collection = File.readlines("/usr/share/dict/words")#returns an array of all words in file
+    10.times do
+      @completion.insert(word_collection.sample.strip)
+    end
+    assert_equal 10, @completion.count
+
+
 end

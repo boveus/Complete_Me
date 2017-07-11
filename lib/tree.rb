@@ -60,40 +60,52 @@ class Tree
     if node.has_child?(letter) && index < final_index
       index += 1
       find_suggest_start(node.get_child(letter), word_fragment_array, final_index, word_fragment, index)
-    elsif index == final_index
-      # word_fragment.chop!
-
-      walk_trie(node, word_fragment)
+    elsif index == final_index && word_fragment_array.length == 1
+      #clean this up so that root goes to the child that is
+      node = node.get_child(letter)
+      walk_trie(node)
+    elsif index == final_index && word_fragment_array.length > 1
+      # node = node.get_child(letter)
+      walk_trie(node.get_child(letter), node.letter)
     end
   end
 
-  def walk_trie(node, prefix = '', word_array = [], word = '')
-
-    if node.word && node.children.count != 0
+  def walk_trie(node, word = '' , word_array = [], prefix = '')
+    if node.word && node.children.count > 0
       prefix = word
-      word << node.letter
-      word_array << word
-
+      word += node.letter
+      word_array << prefix + node.letter
       node.children.each_value do |child_node|
-        # word << child_node.letter
-        walk_trie(child_node, prefix, word_array)
+        walk_trie(child_node, word, word_array, prefix)
       end
     elsif node.word && node.children.count == 0
-      word << prefix
-      word << node.letter
-      word_array << word
-      return
+      prefix = word
+      word += node.letter
+      word_array << prefix + node.letter
     else
-      # puts node.letter
-      word << node.letter
-      prefix << node.letter
+      word += node.letter
       node.children.each_value do |child_node|
-        # word << child_node.letter
-        walk_trie(child_node, prefix, word_array, word)
+        walk_trie(child_node, word, word_array, prefix)
       end
-    word_array
+    word_array.sort
     end
   end
+  #
+  # if node.word && node.children.count != 0
+  #   prefix = word
+  #   word << node.letter
+  #   word_array << word
+  #
+  #   node.children.each_value do |child_node|
+  #     # word << child_node.letter
+  #     walk_trie(child_node, prefix, word_array)
+  #   end
+  # elsif node.word && node.children.count == 0
+  #   word << prefix
+  #   word << node.letter
+  #   word_array << word
+  #   return
+  # end
 
   def retrieve_single_child(node)
     letter = node.children.keys.join
