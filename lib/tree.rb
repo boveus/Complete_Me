@@ -61,38 +61,37 @@ class Tree
       find_suggest_start(node.get_child(letter), word_fragment_array, final_index, word_fragment, index)
     elsif index == final_index
       # word_fragment.chop!
-      walk_trie(node, word_fragment)
+
+      walk_trie(node)
     end
   end
 
-  def walk_trie(node, word_fragment, word_array = [], word = '')
-    if node.word && node.children.count == 0
+  def walk_trie(node, word_array = [], word = '')
+    if node.word && node.children.count > 0
       word << node.letter
+      # puts node.letter
       word_array << word
-      return
-    elsif node.word && node.children.count > 0
-      word << node.letter
-      word_array << word
-      node.children.each do |letter, child_node|
-        walk_trie(child_node, word_fragment, word_array, word)
+      puts word_array
+      word = ''
+      node.children.each_value do |child_node|
+        walk_trie(child_node, word_array, word)
       end
+    elsif node.word && node.children.count == 0
+      word << node.letter
+      # puts node.letter
+      word_array << word
+      # puts word_array
+      return
     else
       word << node.letter
-      node.children.each do |letter, child_node|
-        walk_trie(child_node, word_fragment, word_array, word)
+      puts node.letter
+      # puts word_array
+      node.children.each_value do |child_node|
+        walk_trie(child_node, word_array, word)
       end
-    end
     word_array
+    end
   end
-#
-# elsif node.has_one_child?
-#   word << node.letter
-#   walk_trie(node.children.values[0], word_fragment, word_array, word)
-
-
-
-
-
 
   def retrieve_single_child(node)
     letter = node.children.keys.join
