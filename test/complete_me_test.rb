@@ -47,16 +47,19 @@ class CompleteMeTest < Minitest::Test
 #how many suggest tests do we want to do?
 
   def test_suggest_word_with_one_word_inserted_and_three_letter_string
+    skip
       @completion.insert("pizza")
       assert_equal ["pizza"], @completion.suggest("pi")
   end
 
   def test_suggest_word_with_one_word_inserted_and_one_letter_string
+    skip
       @completion.insert("pizza")
       assert_equal ["pizza"], @completion.suggest("p")
   end
 
   def test_suggest_single_children
+    skip
       @completion.insert("bracket")
       assert_equal ["bracket"], @completion.suggest("br")
       @completion.insert("hostile")
@@ -68,6 +71,7 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_suggest_word_with_three_similar_words_inserted
+    skip
       @completion.insert("host")
       @completion.insert("hose")
       @completion.insert("hostel")
@@ -84,6 +88,7 @@ class CompleteMeTest < Minitest::Test
       @completion.insert("hostel")
       @completion.insert("hoss")
       @completion.insert("hiss")
+
 
       assert_equal ["hiss", "hose", "hoss", "host", "hostage", "hostel", "hostile"], @completion.suggest("h")
       assert_equal ["hose", "hoss", "host", "hostage", "hostel", "hostile"], @completion.suggest("ho")
@@ -111,8 +116,9 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_that_suggest_returns_suggestions_by_weight
-    skip
-    completion.select("piz", "pizzeria")
+    @completion.insert('pizza')
+    @completion.insert('pizzeria')
+    @completion.select("piz", "pizzeria")
     assert_equal ["pizzeria"], completion.suggest("piz")[0]
   end
 

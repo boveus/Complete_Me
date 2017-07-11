@@ -56,7 +56,7 @@ class TreeTest < Minitest::Test
     @tree.insert("pizza")
     @tree.insert("pizzeria")
     array = "pizzeria".chars
-    assert_equal 1, @tree.increase_weight(array)
+    assert_equal 1, @tree.increase_weight(array).weigh
   end
 
 end

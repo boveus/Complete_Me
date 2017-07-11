@@ -51,7 +51,8 @@ class Tree
   def suggest(word_fragment)
     word_fragment_array = convert_word_to_array(word_fragment)
     final_index = word_fragment_array.length - 1
-    find_suggest_start(@root, word_fragment_array, final_index, word_fragment)
+    word_array, word_weight_array = find_suggest_start(@root, word_fragment_array, final_index, word_fragment)
+    return_weighted_array(word_array, word_weight_array)
   end
 
   def find_suggest_start(node, word_fragment_array, final_index, word_fragment, index = 0)
@@ -70,25 +71,45 @@ class Tree
     end
   end
 
-  def walk_trie(node, word = '' , word_array = [], prefix = '')
+  def walk_trie(node, word = '' , word_array = [], prefix = '', word_weight_array = [])
     if node.word && node.children.count > 0
       prefix = word
       word += node.letter
       word_array << prefix + node.letter
+      word_weight_array << node.weight
       node.children.each_value do |child_node|
-        walk_trie(child_node, word, word_array, prefix)
+        walk_trie(child_node, word, word_array, prefix, word_weight_array)
       end
     elsif node.word && node.children.count == 0
       prefix = word
       word += node.letter
       word_array << prefix + node.letter
+      word_weight_array << node.weight
     else
       word += node.letter
       node.children.each_value do |child_node|
-        walk_trie(child_node, word, word_array, prefix)
+        walk_trie(child_node, word, word_array, prefix, word_weight_array)
       end
-    word_array.sort
     end
+    return word_array, word_weight_array
+
+  end
+
+  def return_weighted_array(word_array, word_weight_array)
+    weight_hash = create_weight_hash(word_array.sort, word_weight_array)
+    sort_weight_hash(weight_hash)
+  end
+
+  def create_weight_hash(key, values)
+    Hash[key.zip(values)]
+  end
+
+  def sort_weight_hash(weight_hash, final_word_array = [])
+    weight_hash.keys.sort
+    weight_hash.each_key do |word|
+      final_word_array << word
+    end
+    final_word_array
   end
 
   def retrieve_single_child(node)
@@ -104,26 +125,18 @@ class Tree
   end
 
   def select(word_fragment, suggestion)
-    word_fragment_array = convert_word_to_array(word_fragment)
-    increase_weight(word_fragment_array)
+    suggestion_array = convert_word_to_array(suggestion)
+    increase_weight(suggestion_array)
   end
 
-  def increase_weight(word_fragment_array, node = @root, index = 0)
-    #fix insert method to work like this one with the location of where letter is being generated
-    final_index = word_fragment_array.length - 1
-    letter = word_fragment_array[index]
+  def increase_weight(suggestion_array, node = @root, index = 0)
+    final_index = suggestion_array.length - 1
+    letter = suggestion_array[index]
     if node.has_child?(letter) && index < final_index
       index += 1
-      increase_weight(word_fragment_array, node.get_child(letter), index)
-    # elsif index == final_index && word_fragment_array.length == 1
-    #   #clean this up so that root goes to the child that is
-    #   node = node.get_child(letter)
-    #   node.increase_weight
+      increase_weight(suggestion_array, node.get_child(letter), index)
     else
-      # node = node.get_child(letter)
-      node.increase_weight
-      node.weight
+      node.get_child(letter).increase_weight
     end
   end
-
 end
