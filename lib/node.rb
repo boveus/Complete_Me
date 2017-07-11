@@ -2,12 +2,14 @@ require 'pry'
 class Node
   attr_reader :children,
               :word,
-              :letter
+              :letter,
+              :weight
 
   def initialize
     @word = false
     @children = {}
     @letter = ''
+    @weight = 0
   end
 
   def set_word
@@ -45,6 +47,10 @@ class Node
 
   def has_one_child?
     @children.count == 1
+  end
+
+  def increase_weight
+    @weight += 1
   end
 
 end

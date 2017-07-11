@@ -52,4 +52,11 @@ class TreeTest < Minitest::Test
     assert_equal ["h", "e", "l", "l", "o"], @tree.convert_word_to_array("hello")
   end
 
+  def test_that_weight_can_be_increased
+    @tree.insert("pizza")
+    @tree.insert("pizzeria")
+    array = "pizzeria".chars
+    assert_equal 1, @tree.increase_weight(array)
+  end
+
 end

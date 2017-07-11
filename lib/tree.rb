@@ -103,4 +103,27 @@ class Tree
     end
   end
 
+  def select(word_fragment, suggestion)
+    word_fragment_array = convert_word_to_array(word_fragment)
+    increase_weight(word_fragment_array)
+  end
+
+  def increase_weight(word_fragment_array, node = @root, index = 0)
+    #fix insert method to work like this one with the location of where letter is being generated
+    final_index = word_fragment_array.length - 1
+    letter = word_fragment_array[index]
+    if node.has_child?(letter) && index < final_index
+      index += 1
+      increase_weight(word_fragment_array, node.get_child(letter), index)
+    # elsif index == final_index && word_fragment_array.length == 1
+    #   #clean this up so that root goes to the child that is
+    #   node = node.get_child(letter)
+    #   node.increase_weight
+    else
+      # node = node.get_child(letter)
+      node.increase_weight
+      node.weight
+    end
+  end
+
 end

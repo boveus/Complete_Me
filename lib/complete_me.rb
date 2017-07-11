@@ -26,10 +26,10 @@ class CompleteMe
     tree.populate(words)
   end
 
-  def select(string, suggestion)
-    tree.select(string, suggestion)#why is select a different color
+  def select(word_fragment, suggestion)
+    tree.select(word_fragment, suggestion)
   end
 
-  
+
 
 end

@@ -104,10 +104,16 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_populate_adds_dictionary_to_tree
-    
+    skip
     dictionary = File.read("/usr/share/dict/words")
     @completion.populate(dictionary)
     assert_equal 235886, @completion.count
+  end
+
+  def test_that_suggest_returns_suggestions_by_weight
+    skip
+    completion.select("piz", "pizzeria")
+    assert_equal ["pizzeria"], completion.suggest("piz")[0]
   end
 
 end
