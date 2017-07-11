@@ -90,22 +90,6 @@ class Tree
     word_array.sort
     end
   end
-  #
-  # if node.word && node.children.count != 0
-  #   prefix = word
-  #   word << node.letter
-  #   word_array << word
-  #
-  #   node.children.each_value do |child_node|
-  #     # word << child_node.letter
-  #     walk_trie(child_node, prefix, word_array)
-  #   end
-  # elsif node.word && node.children.count == 0
-  #   word << prefix
-  #   word << node.letter
-  #   word_array << word
-  #   return
-  # end
 
   def retrieve_single_child(node)
     letter = node.children.keys.join
