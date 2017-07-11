@@ -30,4 +30,6 @@ class CompleteMe
     tree.select(string, suggestion)#why is select a different color
   end
 
+  
+
 end

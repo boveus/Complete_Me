@@ -26,13 +26,13 @@ class Tree
       index += 1
       populate_children(node.get_child(letter), converted_word, index, final_index)
     elsif node.has_no_child?(letter) && index == final_index
-      node.set_word
+        node.set_word
       return @number_of_words += 1
     elsif node.has_child?(letter) && index < final_index
       index += 1
       populate_children(node.get_child(letter), converted_word, index, final_index)
     elsif node.has_child?(letter) && index == final_index
-      node.get_child(letter).set_word
+      node.set_word
       return @number_of_words += 1
     end
   end
@@ -94,6 +94,14 @@ class Tree
   def retrieve_single_child(node)
     letter = node.children.keys.join
     node.children[letter]
+  end
+
+  def populate(words)
+    puts words
+    word_array = words.split('\n')
+    # word_array.each do |word|
+    #   insert(word)
+    # end
   end
 
 end

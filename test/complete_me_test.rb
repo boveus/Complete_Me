@@ -90,11 +90,24 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_suggest_word_with_ten_random_children
+    skip
     word_collection = File.readlines("/usr/share/dict/words")#returns an array of all words in file
     10.times do
       @completion.insert(word_collection.sample.strip)
     end
     assert_equal 10, @completion.count
+  end
 
+  def test_populate_adds_words_to_tree
+    @completion.populate("dog")
+    assert_equal 1, @completion.count
+  end
+
+  def test_populate_adds_dictionary_to_tree
+    
+    dictionary = File.read("/usr/share/dict/words")
+    @completion.populate(dictionary)
+    assert_equal 235886, @completion.count
+  end
 
 end
