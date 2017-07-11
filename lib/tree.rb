@@ -62,32 +62,21 @@ class Tree
     elsif index == final_index
       # word_fragment.chop!
 
-      walk_trie(node, word_fragment)
+      walk_trie(node)
     end
   end
 
   def walk_trie(node, prefix = '', word_array = [], word = '')
-
-    if node.word && node.children.count != 0
+    if node.word
       prefix = word
-      word << node.letter
-      word_array << word
-
+      word += node.letter
+      word_array << prefix + node.letter
       node.children.each_value do |child_node|
-        # word << child_node.letter
-        walk_trie(child_node, prefix, word_array)
+        walk_trie(child_node, prefix, word_array, word)
       end
-    elsif node.word && node.children.count == 0
-      word << prefix
-      word << node.letter
-      word_array << word
-      return
     else
-      # puts node.letter
       word << node.letter
-      prefix << node.letter
       node.children.each_value do |child_node|
-        # word << child_node.letter
         walk_trie(child_node, prefix, word_array, word)
       end
     word_array
