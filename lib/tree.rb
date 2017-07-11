@@ -97,11 +97,10 @@ class Tree
   end
 
   def populate(words)
-    puts words
-    word_array = words.split('\n')
-    # word_array.each do |word|
-    #   insert(word)
-    # end
+    word_array = words.split("\n")
+    word_array.each do |word|
+      insert(word)
+    end
   end
 
 end
