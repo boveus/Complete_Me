@@ -86,7 +86,7 @@ class Tree
       node.children.each_value do |child_node|
         walk_trie(child_node, word, word_array, prefix)
       end
-    word_array
+    word_array.sort
     end
   end
   #
