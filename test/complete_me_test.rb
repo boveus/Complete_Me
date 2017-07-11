@@ -88,4 +88,13 @@ class CompleteMeTest < Minitest::Test
       assert_equal ["hiss", "hose", "hoss", "host", "hostage", "hostel", "hostile"], @completion.suggest("h")
       assert_equal ["hose", "hoss", "host", "hostage", "hostel", "hostile"], @completion.suggest("ho")
   end
+
+  def test_suggest_word_with_ten_random_children
+    word_collection = File.readlines("/usr/share/dict/words")#returns an array of all words in file
+    10.times do
+      @completion.insert(word_collection.sample.strip)
+    end
+    assert_equal 10, @completion.count
+
+
 end
