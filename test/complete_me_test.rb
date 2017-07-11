@@ -47,19 +47,17 @@ class CompleteMeTest < Minitest::Test
 #how many suggest tests do we want to do?
 
   def test_suggest_word_with_one_word_inserted_and_three_letter_string
-      skip
+    skip
       @completion.insert("pizza")
       assert_equal ["pizza"], @completion.suggest("pi")
   end
 
   def test_suggest_word_with_one_word_inserted_and_one_letter_string
-      skip
       @completion.insert("pizza")
       assert_equal ["pizza"], @completion.suggest("p")
   end
 
   def test_suggest_single_children
-      skip
       @completion.insert("bracket")
       assert_equal ["bracket"], @completion.suggest("br")
       @completion.insert("hostile")
@@ -71,10 +69,12 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_suggest_word_with_three_similar_words_inserted
-      @completion.insert("host")
-      @completion.insert("hostel")
       @completion.insert("hosting")
-      assert_equal ["host", "hostel", "hosting"], @completion.suggest("ho")
+      @completion.insert("hostel")
+      @completion.insert("host")
+      @completion.insert("hose")
+
+      assert_equal ["host", "hose", "hostel", "hosting"], @completion.suggest("ho")
   end
 
 

@@ -66,10 +66,16 @@ class Tree
   end
 
   def walk_trie(node, word_fragment, word_array = [], word = '')
-    if node.word
+    if node.word && node.children.count == 0
       word << node.letter
       word_array << word
       return
+    elsif node.word && node.children.count > 0
+      word << node.letter
+      word_array << word
+      node.children.each do |letter, child_node|
+        walk_trie(child_node, word_fragment, word_array, word)
+      end
     else
       word << node.letter
       node.children.each do |letter, child_node|
