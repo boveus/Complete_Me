@@ -59,20 +59,23 @@ class Tree
     if node.has_child?(letter) && index < final_index
       index += 1
       find_suggest_start(node.get_child(letter), word_fragment_array, final_index, word_fragment, index)
-    elsif index == final_index
-      # word_fragment.chop!
-
+    elsif index == final_index && word_fragment_array.length == 1
+      #clean this up so that root goes to the child that is
+      node = node.get_child(letter)
       walk_trie(node)
+    elsif index == final_index && word_fragment_array.length > 1
+      # node = node.get_child(letter)
+      walk_trie(node.get_child(letter), node.letter)
     end
   end
 
-  def walk_trie(node, prefix = '', word_array = [], word = '')
+  def walk_trie(node, word = '' , word_array = [], prefix = '')
     if node.word && node.children.count > 0
       prefix = word
       word += node.letter
       word_array << prefix + node.letter
       node.children.each_value do |child_node|
-        walk_trie(child_node, prefix, word_array, word)
+        walk_trie(child_node, word, word_array, prefix)
       end
     elsif node.word && node.children.count == 0
       prefix = word
@@ -81,7 +84,7 @@ class Tree
     else
       word += node.letter
       node.children.each_value do |child_node|
-        walk_trie(child_node, prefix, word_array, word)
+        walk_trie(child_node, word, word_array, prefix)
       end
     word_array
     end
