@@ -69,18 +69,22 @@ class Tree
     if node.word
       word << node.letter
       word_array << word
-      word = ''
-      #add path to word list as word
       return
     else
       word << node.letter
       node.children.each do |letter, child_node|
         walk_trie(child_node, word_fragment, word_array, word)
-        binding.pry
+      end
     end
     word_array
-    end
   end
+#
+# elsif node.has_one_child?
+#   word << node.letter
+#   walk_trie(node.children.values[0], word_fragment, word_array, word)
+
+
+
 
 
 

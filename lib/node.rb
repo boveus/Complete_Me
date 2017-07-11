@@ -61,4 +61,8 @@ class Node
     end
   end
 
+  def has_one_child?
+    @children.count == 1
+  end
+
 end
