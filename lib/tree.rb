@@ -67,21 +67,41 @@ class Tree
   end
 
   def walk_trie(node, prefix = '', word_array = [], word = '')
-    if node.word
+    if node.word && node.children.count > 0
       prefix = word
       word += node.letter
       word_array << prefix + node.letter
       node.children.each_value do |child_node|
         walk_trie(child_node, prefix, word_array, word)
       end
+    elsif node.word && node.children.count == 0
+      prefix = word
+      word += node.letter
+      word_array << prefix + node.letter
     else
-      word << node.letter
+      word += node.letter
       node.children.each_value do |child_node|
         walk_trie(child_node, prefix, word_array, word)
       end
     word_array
     end
   end
+  #
+  # if node.word && node.children.count != 0
+  #   prefix = word
+  #   word << node.letter
+  #   word_array << word
+  #
+  #   node.children.each_value do |child_node|
+  #     # word << child_node.letter
+  #     walk_trie(child_node, prefix, word_array)
+  #   end
+  # elsif node.word && node.children.count == 0
+  #   word << prefix
+  #   word << node.letter
+  #   word_array << word
+  #   return
+  # end
 
   def retrieve_single_child(node)
     letter = node.children.keys.join
