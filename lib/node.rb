@@ -27,38 +27,20 @@ class Node
     @children[letter]
   end
 
-#Refactor the things below to return a boolean instead of explicit true/false
-
   def has_child?(letter)
-    if get_child(letter) != nil
-      true
-    else
-      false
-    end
+    get_child(letter) != nil
   end
 
   def has_no_child?(letter)
-    if get_child(letter) == nil
-      true
-    else
-      false
-    end
+    get_child(letter) == nil
   end
 
   def child_nil?
-    if @children.count < 1
-      true
-    else
-      false
-    end
+    @children.count < 1
   end
 
   def child_not_nil?
-    if @children.count > 0
-      true
-    else
-      false
-    end
+    @children.count > 0
   end
 
   def has_one_child?
