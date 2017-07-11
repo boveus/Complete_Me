@@ -11,6 +11,14 @@ class TreeTest < Minitest::Test
     @tree = Tree.new
   end
 
+  def test_tree_class_exists
+    assert_instance_of Tree, @tree
+  end
+
+  def test_tree_has_no_words_on_instantiation
+    assert_equal 0, @tree.number_of_words
+  end
+
   def test_insert_one_item_returns_count
     @tree.insert("pizza")
     assert_equal 1, @tree.count
@@ -39,4 +47,9 @@ class TreeTest < Minitest::Test
     end
     assert_equal 5, @tree.count
   end
+
+  def test_word_can_be_turned_into_array
+    assert_equal ["h", "e", "l", "l", "o"], @tree.convert_word_to_array("hello")
+  end
+
 end

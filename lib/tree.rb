@@ -1,7 +1,8 @@
 require './lib/node'
 class Tree
 
-  attr_reader :root
+  attr_reader :root,
+              :number_of_words
 
   def initialize
     @root = Node.new
