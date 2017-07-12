@@ -96,7 +96,7 @@ class Tree
   end
 
   def return_weighted_array(word_array, word_weight_array)
-    weight_hash = create_weight_hash(word_array.sort, word_weight_array)
+    weight_hash = create_weight_hash(word_array, word_weight_array)
     sort_weight_hash(weight_hash)
   end
 
@@ -104,20 +104,17 @@ class Tree
     Hash[key.zip(values)]
   end
 
-  def sort_weight_hash(weight_hash, final_word_array = [])
+  def sort_weight_hash(weight_hash, final_word_array = [], word_array = [], weighted_word_array = [])
     hash_original = weight_hash.select { |word, weight| weight < 1}
     hash_copy = weight_hash.select { |word, weight| weight > 0}
-    #hash_copy.select! { |word, weight| weight > 0}
-#  hash_original.select { |word, weight| weight < 1}
     sorted_hash_copy = hash_copy.sort_by { |word, weight| weight}.reverse!
     sorted_hash_copy.each do |word|
-      final_word_array << word[0]
+      weighted_word_array << word[0]
     end
     hash_original.each_key do |word|
-      final_word_array << word
+      word_array << word
     end
-    #final_word_array << hash_original.keys
-    final_word_array
+    weighted_word_array + word_array.sort
   end
 
   def retrieve_single_child(node)
