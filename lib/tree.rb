@@ -152,15 +152,49 @@ class Tree
     delete_children(@root, converted_word, index, final_index)
   end
 
-  def delete_children(node, converted_word, index, final_index)
+  # def delete_children(node, converted_word, index, final_index)
+  #   letter = converted_word[index]
+  #   if node.word == false && index < final_index
+  #     index += 1
+  #     delete_children(node.get_child(letter), converted_word, index, final_index)
+  #   elsif node.word == true && index == final_index
+  #       node.delete_word
+  #     return @number_of_words -= 1
+  #   end
+  # end
+
+  def delete_children(node, converted_word, index, final_index, last_letter = "")
     letter = converted_word[index]
     if node.word == false && index < final_index
       index += 1
       delete_children(node.get_child(letter), converted_word, index, final_index)
-    elsif node.word == true && index == final_index
+    elsif node.word == true && index == final_index && node.child_not_nil?
         node.delete_word
-      return @number_of_words -= 1
+        return @number_of_words -= 1
+    elsif index == final_index && node.child_nil?
+      last_letter = converted_word.pop
+      kill_children(@root, last_letter, converted_word, 0)
+      @number_of_words -= 1
     end
   end
+
+  def kill_children(node, last_letter, converted_word, index)
+      final_index = converted_word.length - 1
+      letter = converted_word[index]
+      if index < final_index
+        index += 1
+        node.get_child(letter)
+        kill_children(node.get_child(letter), last_letter, converted_word, index)
+      elsif index == final_index && node.has_one_child?
+        node.remove_child(last_letter)
+        last_letter = converted_word.pop
+        kill_children(node.get_child(letter), last_letter, converted_word, index)
+      elsif index = final_index && node.children.length > 1
+        node.remove_child(last_letter)
+      end
+  end
+
+
+
 
 end

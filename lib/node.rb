@@ -57,4 +57,8 @@ class Node
     @weight += 1
   end
 
+  def remove_child(letter)
+    @children.delete(letter)
+  end
+
 end
