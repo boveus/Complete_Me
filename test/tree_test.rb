@@ -67,9 +67,34 @@ class TreeTest < Minitest::Test
   end
 
   def test_words_can_be_deleted
+    skip
     @tree.insert("pizza")
     assert_equal 1, @tree.count
     @tree.delete_words("pizza")
     assert_equal 0, @tree.count
   end
+
+  def test_other_words_can_be_deleted
+    skip
+    @tree.insert("pizza")
+    @tree.insert("pizzeria")
+    @tree.delete_words("pizza")
+    assert_equal 1, @tree.count
+  end
+
+  def test_if_more_than_one_word_can_be_delete
+    @tree.insert("hose")
+    @tree.insert("hostile")
+    @tree.insert("host")
+    @tree.insert("hostage")
+    @tree.insert("hostel")
+    @tree.insert("hoss")
+    @tree.insert("hiss")
+    @tree.delete_words("host")
+    @tree.delete_words("hostel")
+    assert_equal 5, @tree.count
+    assert_equal ["hose", "hoss", "hostage", "hostile"], @tree.suggest("ho")
+
+  end
+
 end
