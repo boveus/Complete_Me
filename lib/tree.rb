@@ -105,9 +105,15 @@ class Tree
   end
 
   def sort_weight_hash(weight_hash, final_word_array = [])
-    weight_hash.keys.sort
-    weight_hash.each_key do |word|
-      final_word_array << word
+    first_array = []
+    second_array = []
+    weight_hash.each do |word, weight|
+      if weight > 0
+      first_array << word
+      else
+      second_array << word
+      end
+      final_word_array = first_array + second_array
     end
     final_word_array
   end

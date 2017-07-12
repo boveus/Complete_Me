@@ -167,6 +167,7 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_populate_adds_dictionary_to_tree
+    skip
     dictionary = File.read("/usr/share/dict/words")
     @completion.populate(dictionary)
     assert_equal 235886, @completion.count
@@ -176,7 +177,7 @@ class CompleteMeTest < Minitest::Test
     @completion.insert('pizza')
     @completion.insert('pizzeria')
     @completion.select("piz", "pizzeria")
-    assert_equal ["pizzeria"], completion.suggest("piz")[0]
+    assert_equal ["pizzeria", 'pizza'], completion.suggest("piz")
   end
 
 end
