@@ -189,6 +189,7 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_select_for_multiple_selections
+    skip
       @completion.insert("hose")
       @completion.insert("hostile")
       @completion.insert("host")
