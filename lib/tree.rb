@@ -50,24 +50,25 @@ class Tree
 
   def suggest(word_fragment)
     word_fragment_array = convert_word_to_array(word_fragment)
-    final_index = word_fragment_array.length - 1
-    word_array, word_weight_array = find_suggest_start(@root, word_fragment_array, final_index, word_fragment)
+    # final_index = word_fragment_array.length - 1
+    # word_array, word_weight_array = find_suggest_start(@root, word_fragment_array, final_index, word_fragment)
+    word_array, word_weight_array = find_suggest_start(@root, word_fragment_array)
     return_weighted_array(word_array, word_weight_array)
   end
 
-  def find_suggest_start(node, word_fragment_array, final_index, word_fragment, index = 0)
+  def find_suggest_start(node, word_fragment_array, index = 0, word = '')
     #fix insert method to work like this one with the location of where letter is being generated
-    letter = word_fragment_array[index]
-    if node.has_child?(letter) && index < final_index
+    final_index = word_fragment_array.length
+    current_letter = word_fragment_array[index]
+    if node.has_child?(current_letter) && index < final_index
       index += 1
-      find_suggest_start(node.get_child(letter), word_fragment_array, final_index, word_fragment, index)
-    elsif index == final_index && word_fragment_array.length == 1
-      #clean this up so that root goes to the child that is
-      node = node.get_child(letter)
-      walk_trie(node)
-    elsif index == final_index && word_fragment_array.length > 1
-      # node = node.get_child(letter)
-      walk_trie(node.get_child(letter), node.letter)
+      word += current_letter
+      next_node = node.get_child(current_letter)
+      find_suggest_start(next_node, word_fragment_array, index, word)
+    elsif index == final_index
+      # word += current_letter
+      word.chop!
+      walk_trie(node, word)
     end
   end
 
