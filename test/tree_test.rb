@@ -66,4 +66,10 @@ class TreeTest < Minitest::Test
     assert_equal 1, @tree.root.children['p'].weight
   end
 
+  def test_words_can_be_deleted
+    @tree.insert("pizza")
+    assert_equal 1, @tree.count
+    @tree.delete_words("pizza")
+    assert_equal 0, @tree.count
+  end
 end

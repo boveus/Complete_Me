@@ -14,27 +14,27 @@
       <img src="./assets/0.10.1/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2017-07-12T13:40:18-06:00">2017-07-12T13:40:18-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2017-07-12T14:10:02-06:00">2017-07-12T14:10:02-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
         <div class="file_list_container" id="AllFiles">
   <h2>
     <span class="group_name">All Files</span>
-    (<span class="covered_percent"><span class="green">100.0%</span></span>
+    (<span class="covered_percent"><span class="green">96.33%</span></span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         1.36
+         1.31
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
     <b>2</b> files in total.
-    <b>104</b> relevant lines. 
-    <span class="green"><b>104</b> lines covered</span> and
-    <span class="red"><b>0</b> lines missed </span>
+    <b>109</b> relevant lines. 
+    <span class="green"><b>105</b> lines covered</span> and
+    <span class="red"><b>4</b> lines missed </span>
   </div>
   <table class="file_list">
     <thead>
@@ -62,12 +62,12 @@
       
       <tr>
         <td class="strong"><a href="#dba387e83e01bd77b263bea060c504155aa6cd89" class="src_link" title="test/tree_test.rb">test/tree_test.rb</a></td>
-        <td class="green strong">100.0 %</td>
-        <td>69</td>
-        <td>42</td>
-        <td>42</td>
-        <td>0</td>
-        <td>1.3</td>
+        <td class="green strong">91.49 %</td>
+        <td>75</td>
+        <td>47</td>
+        <td>43</td>
+        <td>4</td>
+        <td>1.2</td>
       </tr>
       
     </tbody>
@@ -660,11 +660,11 @@
         <div class="source_table" id="dba387e83e01bd77b263bea060c504155aa6cd89">
   <div class="header">
     <h3>test/tree_test.rb</h3>
-    <h4><span class="green">100.0 %</span> covered</h4>
+    <h4><span class="green">91.49 %</span> covered</h4>
     <div>
-      <b>42</b> relevant lines. 
-      <span class="green"><b>42</b> lines covered</span> and
-      <span class="red"><b>0</b> lines missed.</span>
+      <b>47</b> relevant lines. 
+      <span class="green"><b>43</b> lines covered</span> and
+      <span class="red"><b>4</b> lines missed.</span>
     </div>
   </div>
   
@@ -779,26 +779,26 @@
           <code class="ruby">  def test_words_can_be_deleted</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="19">
-          <span class="hits">1</span>
+        <li class="missed" data-hits="0" data-linenumber="19">
+          
           
           <code class="ruby">    @tree.insert(&quot;pizza&quot;)</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="20">
-          <span class="hits">1</span>
+        <li class="missed" data-hits="0" data-linenumber="20">
+          
           
           <code class="ruby">    assert_equal 1, @tree.count</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="21">
-          <span class="hits">1</span>
+        <li class="missed" data-hits="0" data-linenumber="21">
+          
           
           <code class="ruby">    @tree.delete_words(&quot;pizza&quot;)</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="22">
-          <span class="hits">1</span>
+        <li class="missed" data-hits="0" data-linenumber="22">
+          
           
           <code class="ruby">    assert_equal 0, @tree.count</code>
         </li>
@@ -1079,7 +1079,43 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="69">
+        <li class="covered" data-hits="1" data-linenumber="69">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def test_words_can_be_deleted</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="70">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    @tree.insert(&quot;pizza&quot;)</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="71">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    assert_equal 1, @tree.count</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="72">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    @tree.delete_words(&quot;pizza&quot;)</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="73">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    assert_equal 0, @tree.count</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="74">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="75">
           
           
           <code class="ruby">end</code>
