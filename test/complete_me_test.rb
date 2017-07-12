@@ -102,8 +102,6 @@ class CompleteMeTest < Minitest::Test
       @completion.insert("hiss")
 
       assert_equal ["hose", "hoss", "host", "hostage", "hostel", "hostile"], @completion.suggest("ho")
-      assert_equal ["hose", "hoss", "host", "hostage", "hostel", "hostile"], @completion.suggest("hos")
-      assert_equal ["hostage", "hostel", "hostile"],@completion.suggest("host")
   end
 
   def test_suggest_three_letters_with_several_related_children
@@ -153,10 +151,6 @@ class CompleteMeTest < Minitest::Test
 
       assert_equal ["hostile"],@completion.suggest("hostil")
   end
-
-
-
-
 
   def test_suggest_word_with_ten_random_children
     skip
