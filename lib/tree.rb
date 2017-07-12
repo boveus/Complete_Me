@@ -173,28 +173,24 @@ class Tree
         return @number_of_words -= 1
     elsif index == final_index && node.child_nil?
       last_letter = converted_word.pop
-      kill_children(@root, last_letter, converted_word, 0)
+      kill_children(@root, converted_word, 0)
       @number_of_words -= 1
     end
   end
 
-  def kill_children(node, last_letter, converted_word, index)
+  def kill_children(node, converted_word, index)
       final_index = converted_word.length - 1
       letter = converted_word[index]
       if index < final_index
         index += 1
-        node.get_child(letter)
-        kill_children(node.get_child(letter), last_letter, converted_word, index)
-      elsif index == final_index && node.has_one_child?
-        node.remove_child(last_letter)
-        last_letter = converted_word.pop
-        kill_children(node.get_child(letter), last_letter, converted_word, index)
-      elsif index = final_index && node.children.length > 1
-        node.remove_child(last_letter)
+        next_node = node.get_child(letter)
+        kill_children(next_node, converted_word, index)
+      elsif index == final_index && node.children.length < 1
+        node.remove_child(letter)
+        converted_word.pop
+        kill_children(node.get_child(letter), converted_word, index)
+      elsif index = final_index && node.children.length > 0
+        node.remove_child(letter)
       end
   end
-
-
-
-
 end

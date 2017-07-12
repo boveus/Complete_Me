@@ -67,7 +67,6 @@ class TreeTest < Minitest::Test
   end
 
   def test_words_can_be_deleted
-    skip
     @tree.insert("pizza")
     assert_equal 1, @tree.count
     @tree.delete_words("pizza")
@@ -75,7 +74,6 @@ class TreeTest < Minitest::Test
   end
 
   def test_other_words_can_be_deleted
-    skip
     @tree.insert("pizza")
     @tree.insert("pizzeria")
     @tree.delete_words("pizza")
