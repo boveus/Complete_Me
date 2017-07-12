@@ -66,7 +66,6 @@ class Tree
       next_node = node.get_child(current_letter)
       find_suggest_start(next_node, word_fragment_array, index, word)
     elsif index == final_index
-      # word += current_letter
       word.chop!
       walk_trie(node, word)
     end
