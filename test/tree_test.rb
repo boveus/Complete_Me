@@ -15,6 +15,13 @@ class TreeTest < Minitest::Test
     assert_instance_of Tree, @tree
   end
 
+  def test_words_can_be_deleted
+    @tree.insert("pizza")
+    assert_equal 1, @tree.count
+    @tree.delete_words("pizza")
+    assert_equal 0, @tree.count
+  end
+
   def test_tree_has_no_words_on_instantiation
     assert_equal 0, @tree.number_of_words
   end
@@ -55,8 +62,8 @@ class TreeTest < Minitest::Test
   def test_that_weight_can_be_increased
     @tree.insert("pizza")
     @tree.insert("pizzeria")
-    array = "pizzeria".chars
-    assert_equal 1, @tree.increase_weight(array).weigh
+    @tree.root.children['p'].increase_weight
+    assert_equal 1, @tree.root.children['p'].weight
   end
 
 end

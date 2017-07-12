@@ -139,4 +139,29 @@ class Tree
       node.get_child(letter).increase_weight
     end
   end
+
+  def delete_words(word)
+    index = 0
+    converted_word = convert_word_to_array(word)
+    final_index = converted_word.length # - 1
+    unpopulate_children(@root, converted_word, index, final_index)
+  end
+
+  def unpopulate_children(node, converted_word, index, final_index)
+    letter = converted_word[index]
+    delete_children(node, letter, converted_word, index, final_index)
+  end
+
+  def delete_children(node, letter, converted_word, index, final_index)
+    # Add conditional to account for word already being present to prevent
+    # counter from being increased
+    if node.word == false && index < final_index
+      index += 1
+      unpopulate_children(node.get_child(letter), converted_word, index, final_index)
+    elsif node.word == true && index == final_index
+        node.delete_word
+      return @number_of_words -= 1
+    end
+  end
+
 end

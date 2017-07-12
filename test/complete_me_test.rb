@@ -125,7 +125,7 @@ class CompleteMeTest < Minitest::Test
       @completion.insert("hoss")
       @completion.insert("hiss")
 
-      assert_equal ["hostage", "hostel", "hostile"],@completion.suggest("host")
+      assert_equal ["host", "hostage", "hostel", "hostile"],@completion.suggest("host")
   end
 
   def test_suggest_five_letter_with_several_related_children
@@ -167,14 +167,12 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_populate_adds_dictionary_to_tree
-    skip
     dictionary = File.read("/usr/share/dict/words")
     @completion.populate(dictionary)
     assert_equal 235886, @completion.count
   end
 
   def test_that_suggest_returns_suggestions_by_weight
-    skip
     @completion.insert('pizza')
     @completion.insert('pizzeria')
     @completion.select("piz", "pizzeria")

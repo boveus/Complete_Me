@@ -12,6 +12,10 @@ class Node
     @weight = 0
   end
 
+  def delete_word
+    @word = false
+  end
+
   def set_word
     @word = true
   end
