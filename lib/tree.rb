@@ -105,16 +105,18 @@ class Tree
   end
 
   def sort_weight_hash(weight_hash, final_word_array = [])
-    first_array = []
-    second_array = []
-    weight_hash.each do |word, weight|
-      if weight > 0
-      first_array << word
-      else
-      second_array << word
-      end
-      final_word_array = first_array + second_array
+    hash_original = weight_hash.select { |word, weight| weight < 1}
+    hash_copy = weight_hash.select { |word, weight| weight > 0}
+    #hash_copy.select! { |word, weight| weight > 0}
+#  hash_original.select { |word, weight| weight < 1}
+    sorted_hash_copy = hash_copy.sort_by { |word, weight| weight}.reverse!
+    sorted_hash_copy.each do |word|
+      final_word_array << word[0]
     end
+    hash_original.each_key do |word|
+      final_word_array << word
+    end
+    #final_word_array << hash_original.keys
     final_word_array
   end
 

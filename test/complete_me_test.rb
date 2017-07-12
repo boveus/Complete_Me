@@ -47,19 +47,19 @@ class CompleteMeTest < Minitest::Test
 #how many suggest tests do we want to do?
 
   def test_suggest_word_with_one_word_inserted_and_three_letter_string
-    skip
+
       @completion.insert("pizza")
       assert_equal ["pizza"], @completion.suggest("pi")
   end
 
   def test_suggest_word_with_one_word_inserted_and_one_letter_string
-    skip
+
       @completion.insert("pizza")
       assert_equal ["pizza"], @completion.suggest("p")
   end
 
   def test_suggest_single_children
-    skip
+
       @completion.insert("bracket")
       assert_equal ["bracket"], @completion.suggest("br")
       @completion.insert("hostile")
@@ -71,7 +71,7 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_suggest_word_with_three_similar_words_inserted
-    skip
+
       @completion.insert("host")
       @completion.insert("hose")
       @completion.insert("hostel")
@@ -81,6 +81,7 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_suggest_one_letter_with_several_related_children
+
       @completion.insert("hose")
       @completion.insert("hostile")
       @completion.insert("host")
@@ -93,6 +94,7 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_suggest_two_letters_with_several_related_children
+
       @completion.insert("hose")
       @completion.insert("hostile")
       @completion.insert("host")
@@ -105,6 +107,7 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_suggest_three_letters_with_several_related_children
+
       @completion.insert("hose")
       @completion.insert("hostile")
       @completion.insert("host")
@@ -117,6 +120,7 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_suggest_four_letters_with_several_related_children
+
       @completion.insert("hose")
       @completion.insert("hostile")
       @completion.insert("host")
@@ -129,6 +133,7 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_suggest_five_letter_with_several_related_children
+
       @completion.insert("hose")
       @completion.insert("hostile")
       @completion.insert("host")
@@ -141,6 +146,7 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_suggest_six_letter_with_several_related_children
+
       @completion.insert("hose")
       @completion.insert("hostile")
       @completion.insert("host")
@@ -153,7 +159,7 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_suggest_word_with_ten_random_children
-    skip
+
     word_collection = File.readlines("/usr/share/dict/words")#returns an array of all words in file
     10.times do
       @completion.insert(word_collection.sample.strip)
@@ -162,12 +168,13 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_populate_adds_words_to_tree
+
     @completion.populate("dog")
     assert_equal 1, @completion.count
   end
 
   def test_populate_adds_dictionary_to_tree
-    skip
+
     dictionary = File.read("/usr/share/dict/words")
     @completion.populate(dictionary)
     assert_equal 235886, @completion.count
@@ -179,5 +186,7 @@ class CompleteMeTest < Minitest::Test
     @completion.select("piz", "pizzeria")
     assert_equal ["pizzeria", 'pizza'], completion.suggest("piz")
   end
+
+
 
 end
