@@ -30,6 +30,10 @@ class CompleteMe
     tree.select(word_fragment, suggestion)
   end
 
+  def delete(word)
+    tree.delete(word)
+  end
+
 
 
 end

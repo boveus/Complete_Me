@@ -18,7 +18,7 @@ class TreeTest < Minitest::Test
   def test_words_can_be_deleted
     @tree.insert("pizza")
     assert_equal 1, @tree.count
-    @tree.delete_words("pizza")
+    @tree.delete("pizza")
     assert_equal 0, @tree.count
   end
 
@@ -69,14 +69,14 @@ class TreeTest < Minitest::Test
   def test_words_can_be_deleted
     @tree.insert("pizza")
     assert_equal 1, @tree.count
-    @tree.delete_words("pizza")
+    @tree.delete("pizza")
     assert_equal 0, @tree.count
   end
 
   def test_other_words_can_be_deleted
     @tree.insert("pizza")
     @tree.insert("pizzeria")
-    @tree.delete_words("pizza")
+    @tree.delete("pizza")
     assert_equal 1, @tree.count
   end
 
@@ -88,11 +88,18 @@ class TreeTest < Minitest::Test
     @tree.insert("hostel")
     @tree.insert("hoss")
     @tree.insert("hiss")
-    @tree.delete_words("host")
-    @tree.delete_words("hostel")
+    @tree.delete("host")
+    @tree.delete("hostel")
     assert_equal 5, @tree.count
     assert_equal ["hose", "hoss", "hostage", "hostile"], @tree.suggest("ho")
+  end
 
+  def test_that_leaves_are_deleted
+    @tree.insert("note")
+    @tree.insert("node")
+    @tree.insert("nope")
+    @tree.delete("note")
+    assert_nil @tree.root.children["n"].children["o"].get_child("t")
   end
 
 end
