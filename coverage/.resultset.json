@@ -1,7 +1,7 @@
 {
   "Unit Tests": {
     "coverage": {
-      "/Users/Beckisrofe/turing/1module/projects/Complete_Me/test/node_test.rb": [
+      "/Users/bove/GitHub/MOD1/Complete_Me/test/node_test.rb": [
         1,
         1,
         1,
@@ -95,13 +95,24 @@
         1,
         1,
         null,
+<<<<<<< HEAD
         null,
+=======
+        null
+      ],
+      "/Users/bove/GitHub/MOD1/Complete_Me/test/tree_test.rb": [
+        1,
+>>>>>>> 57f64350750eb5e7de1419c3834fa478383e0b8a
         1,
         1,
         1,
         1,
         1,
         1,
+<<<<<<< HEAD
+=======
+        12,
+>>>>>>> 57f64350750eb5e7de1419c3834fa478383e0b8a
         null,
         null,
         1,
@@ -228,6 +239,7 @@
         0,
         null,
         null,
+<<<<<<< HEAD
         1,
         0,
         0,
@@ -287,5 +299,11 @@
       ]
     },
     "timestamp": 1499919802
+=======
+        null
+      ]
+    },
+    "timestamp": 1499905992
+>>>>>>> 57f64350750eb5e7de1419c3834fa478383e0b8a
   }
 }
