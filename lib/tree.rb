@@ -41,22 +41,20 @@ class Tree
     word.chars
   end
 
-
-
   def suggest(word_fragment)
     word_fragment_array = convert_word_to_array(word_fragment)
-    word_array, word_weight_array = find_suggest_start(@root, word_fragment_array)
+    word_array, word_weight_array = find_suggest_start(word_fragment_array)
     return_weighted_array(word_array, word_weight_array)
   end
 
-  def find_suggest_start(node, word_fragment_array, index = 0, word = '')
+  def find_suggest_start(word_fragment_array, node = @root, index = 0, word = '')
     final_index = word_fragment_array.length
     current_letter = word_fragment_array[index]
     if node.has_child?(current_letter) && index < final_index
       index += 1
       word += current_letter
       next_node = node.get_child(current_letter)
-      find_suggest_start(next_node, word_fragment_array, index, word)
+      find_suggest_start(word_fragment_array, next_node,  index, word)
     elsif index == final_index
       word.chop!
       walk_trie(node, word)
@@ -97,21 +95,16 @@ class Tree
   end
 
   def sort_weight_hash(weight_hash, final_word_array = [], word_array = [], weighted_word_array = [])
-    hash_original = weight_hash.select { |word, weight| weight < 1}
-    hash_copy = weight_hash.select { |word, weight| weight > 0}
-    sorted_hash_copy = hash_copy.sort_by { |word, weight| weight}.reverse!
-    sorted_hash_copy.each do |word|
+    words_with_zero_weight = weight_hash.select { |word, weight| weight < 1}
+    words_with_weight= weight_hash.select { |word, weight| weight > 0}
+    sorted_words_with_weight= words_with_weight.sort_by { |word, weight| weight}.reverse!
+    sorted_words_with_weight.each do |word|
       weighted_word_array << word[0]
     end
-    hash_original.each_key do |word|
+    words_with_zero_weight.each_key do |word|
       word_array << word
     end
     weighted_word_array + word_array.sort
-  end
-
-  def retrieve_single_child(node)
-    letter = node.children.keys.join
-    node.children[letter]
   end
 
   def populate(words)
