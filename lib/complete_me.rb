@@ -33,7 +33,4 @@ class CompleteMe
   def delete(word)
     tree.delete(word)
   end
-
-
-
 end
