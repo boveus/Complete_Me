@@ -37,28 +37,17 @@ class Tree
     end
   end
 
-  def convert_word_to_array(word)
-    word.chars
+  def delete(word)
+    index = 0
+    converted_word = convert_word_to_array(word)
+    final_index = converted_word.length # - 1
+    delete_children(@root, converted_word, index, final_index)
   end
 
   def suggest(word_fragment)
     word_fragment_array = convert_word_to_array(word_fragment)
     word_array, word_weight_array = find_suggest_start(word_fragment_array)
     return_weighted_array(word_array, word_weight_array)
-  end
-
-  def find_suggest_start(word_fragment_array, node = @root, index = 0, word = '')
-    final_index = word_fragment_array.length
-    current_letter = word_fragment_array[index]
-    if node.has_child?(current_letter) && index < final_index
-      index += 1
-      word += current_letter
-      next_node = node.get_child(current_letter)
-      find_suggest_start(word_fragment_array, next_node,  index, word)
-    elsif index == final_index
-      word.chop!
-      walk_trie(node, word)
-    end
   end
 
   def walk_trie(node, word = '' , word_array = [], prefix = '', word_weight_array = [])
@@ -82,29 +71,6 @@ class Tree
       end
     end
     return word_array, word_weight_array
-
-  end
-
-  def return_weighted_array(word_array, word_weight_array)
-    weight_hash = create_weight_hash(word_array, word_weight_array)
-    sort_weight_hash(weight_hash)
-  end
-
-  def create_weight_hash(key, values)
-    Hash[key.zip(values)]
-  end
-
-  def sort_weight_hash(weight_hash, final_word_array = [], word_array = [], weighted_word_array = [])
-    words_with_zero_weight = weight_hash.select { |word, weight| weight < 1}
-    words_with_weight= weight_hash.select { |word, weight| weight > 0}
-    sorted_words_with_weight= words_with_weight.sort_by { |word, weight| weight}.reverse!
-    sorted_words_with_weight.each do |word|
-      weighted_word_array << word[0]
-    end
-    words_with_zero_weight.each_key do |word|
-      word_array << word
-    end
-    weighted_word_array + word_array.sort
   end
 
   def populate(words)
@@ -130,11 +96,18 @@ class Tree
     end
   end
 
-  def delete(word)
-    index = 0
-    converted_word = convert_word_to_array(word)
-    final_index = converted_word.length # - 1
-    delete_children(@root, converted_word, index, final_index)
+  def find_suggest_start(word_fragment_array, node = @root, index = 0, word = '')
+    final_index = word_fragment_array.length
+    current_letter = word_fragment_array[index]
+    if node.has_child?(current_letter) && index < final_index
+      index += 1
+      word += current_letter
+      next_node = node.get_child(current_letter)
+      find_suggest_start(word_fragment_array, next_node,  index, word)
+    elsif index == final_index
+      word.chop!
+      walk_trie(node, word)
+    end
   end
 
   def delete_children(node, converted_word, index, final_index, last_letter = "")
@@ -166,5 +139,31 @@ class Tree
       elsif index = final_index && node.children.length > 0
         node.remove_child(letter)
       end
+  end
+
+  def return_weighted_array(word_array, word_weight_array)
+    weight_hash = create_weight_hash(word_array, word_weight_array)
+    sort_weight_hash(weight_hash)
+  end
+
+  def create_weight_hash(key, values)
+    Hash[key.zip(values)]
+  end
+
+  def sort_weight_hash(weight_hash, final_word_array = [], word_array = [], weighted_word_array = [])
+    words_with_zero_weight = weight_hash.select { |word, weight| weight < 1}
+    words_with_weight = weight_hash.select { |word, weight| weight > 0}
+    sorted_words_with_weight = words_with_weight.sort_by { |word, weight| weight}.reverse!
+    sorted_words_with_weight.each do |word|
+      weighted_word_array << word[0]
+    end
+    words_with_zero_weight.each_key do |word|
+      word_array << word
+    end
+    weighted_word_array + word_array.sort
+  end
+
+  def convert_word_to_array(word)
+    word.chars
   end
 end
