@@ -1,5 +1,6 @@
 require 'simplecov'
 require './lib/complete_me'
+require './lib/tree'
 require 'minitest/autorun'
 require 'minitest/pride'
 
