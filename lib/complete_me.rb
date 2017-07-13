@@ -1,7 +1,3 @@
-# /usr/share/dict/words
-#We might need to change some of the arguments passed in to these.
-require './lib/tree'
-
 class CompleteMe
 
   attr_reader :tree

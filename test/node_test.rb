@@ -8,6 +8,7 @@ class NodeTest < Minitest::Test
     @node = Node.new()
     @node2 = Node.new()
   end
+
   def test_node_class_exists
     assert_instance_of Node, @node
   end
@@ -25,16 +26,18 @@ class NodeTest < Minitest::Test
     assert @node.set_word
   end
 
+  def test_node_can_delete_word
+    @node.set_word
+    refute @node.delete_word
+  end
+
   def test_node_has_no_value_for_letter_at_start
     empty_string = ""
     assert_equal empty_string, @node.letter
   end
 
   def test_node_can_set_letter
-    node = Node.new
-    assert_equal "", node.letter
-    node.set_letter("a")
-    assert_equal "a", node.letter
+    assert_equal "a", @node.set_letter("a")
   end
 
   def test_node_can_add_children
@@ -48,45 +51,59 @@ class NodeTest < Minitest::Test
     assert_instance_of Node, @node.children['a']
   end
 
+  def test_node_has_weight_of_zero_when_instantiated
+    assert_equal 0, @node.weight
+  end
+
   def test_get_child_by_key
     @node.add_child(@node2, 'a')
     assert_instance_of Node, @node.get_child('a')
   end
 
   def test_if_node_has_child
-    node = Node.new
-    refute node.has_child?("a")
-    node.add_child(Node.new, "a")
-    assert node.has_child?("a")
+    refute @node.has_child?("a")
+    @node.add_child(Node.new, "a")
+    assert @node.has_child?("a")
   end
 
   def test_that_node_does_not_have_child
-    node = Node.new
-    assert node.has_no_child?("a")
-    node.add_child(Node.new, "a")
-    refute node.has_no_child?("a")
+    assert @node.has_no_child?("a")
+    @node.add_child(Node.new, "a")
+    refute @node.has_no_child?("a")
   end
 
   def test_if_child_is_nil
-    node = Node.new
-    assert node.child_nil?
-    node.add_child(Node.new, "a")
-    refute node.child_nil?
+    assert @node.child_nil?
+    @node.add_child(Node.new, "a")
+    refute @node.child_nil?
   end
 
   def test_that_child_is_not_nil
-    node = Node.new
-    refute node.child_not_nil?
-    node.add_child(Node.new, "a")
-    assert node.child_not_nil?
+    refute @node.child_not_nil?
+    @node.add_child(Node.new, "a")
+    assert @node.child_not_nil?
   end
 
   def test_if_child_has_one_child?
-    node = Node.new
-    refute node.has_one_child?
-    node.add_child(Node.new, "a")
-    assert node.has_one_child?
-    node.add_child(Node.new, "b")
-    refute node.has_one_child?
+    refute @node.has_one_child?
+    @node.add_child(Node.new, "a")
+    assert @node.has_one_child?
+    @node.add_child(Node.new, "b")
+    refute @node.has_one_child?
+  end
+
+  def test_weight_can_be_increased
+    assert_equal 0, @node.weight
+    @node.increase_weight
+    assert_equal 1, @node.weight
+    @node.increase_weight
+    assert_equal 2, @node.weight
+  end
+
+  def test_child_can_be_removed
+    @node.add_child(@node, "a")
+    assert @node.has_one_child?
+    @node.remove_child("a")
+    assert @node.child_nil?
   end
 end
