@@ -19,8 +19,6 @@ class Tree
   end
 
   def check_children(node, letter, converted_word, index, final_index)
-    # Add conditional to account for word already being present to prevent
-    # counter from being increased
     if node.has_no_child?(letter) && index < final_index
       node.add_child(Node.new, letter)
       index += 1
@@ -44,20 +42,17 @@ class Tree
   def insert(word)
     index = 0
     converted_word = convert_word_to_array(word)
-    final_index = converted_word.length # - 1
+    final_index = converted_word.length
     populate_children(@root, converted_word, index, final_index)
   end
 
   def suggest(word_fragment)
     word_fragment_array = convert_word_to_array(word_fragment)
-    # final_index = word_fragment_array.length - 1
-    # word_array, word_weight_array = find_suggest_start(@root, word_fragment_array, final_index, word_fragment)
     word_array, word_weight_array = find_suggest_start(@root, word_fragment_array)
     return_weighted_array(word_array, word_weight_array)
   end
 
   def find_suggest_start(node, word_fragment_array, index = 0, word = '')
-    #fix insert method to work like this one with the location of where letter is being generated
     final_index = word_fragment_array.length
     current_letter = word_fragment_array[index]
     if node.has_child?(current_letter) && index < final_index
